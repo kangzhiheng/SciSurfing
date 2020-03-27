@@ -1,6 +1,42 @@
 ##  “免费”科学上网新姿势（一）基本动作（谷歌云+BBR加速+SSR）
 
-这篇文章分为两大部分，[简介](#简介)和[方法](# 方法)，即我们在国内“科学上网”的背景，以及“科学上网”的基本方法。想要直接获取方法的朋友请进[传送门](# 方法)。
+这篇文章分为两大部分，[简介](#简介)和[方法](#方法)，即我们在国内“科学上网”的背景，以及“科学上网”的基本方法。想要直接获取方法的朋友请进[传送门](#方法)。
+
+### 目录
+
+- [简介](#简介)
+  - [背景](#背景)
+  - [健康上网行为准则](#健康上网行为准则)
+  - [客观看待“墙”](#客观看待"墙")
+  - [互联网是怎么工作的？](#互联网是怎么工作的？)
+  - [入侵检测手段](#入侵检测手段)
+    - [域名解析缓存服务污染（DNS劫持）](#**域名解析缓存服务污染**（DNS劫持）)
+    - [IP地址或传输层端口封锁（IP封锁）](#IP地址或传输层端口封锁（IP封锁）)
+  - [常用的“名词”](#常用的"名词")
+    - [VPN](#VPN)
+    - [VPS](#VPS)
+    - [SS与SSR](#SS与SSR)
+    - [V2ray](#V2Ray)
+- [方法](#方法)
+  - [基本原理](#基本原理)
+  - [配置环境](#配置环境)
+    - [硬件环境](#硬件环境)
+    - [软件环境](#软件环境)
+    - [其它环境](#其它环境)
+  - [搭配方案](#搭配方案)
+  - [配置步骤](#配置步骤)
+    - [Step1：翻个小墙](#Step1：翻个小墙)
+    - [Step2：注册谷歌账号](#Step2：注册谷歌账号)
+    - [Step3：注册谷歌云服务](#Step3：注册谷歌云服务)
+    - [Step4：创建虚拟机实例](#Step4：创建虚拟机实例)
+    - [Step5：修改谷歌云控制权限](#Step5：修改谷歌云控制权限)
+    - [step6：登录VPS服务器](#step6：登录VPS服务器)
+    - [step7：安装BBR加速内核](#step7：安装BBR加速内核)
+    - [Step8：在VPS上安装SSR服务](#Step8：在VPS上安装SSR服务)
+    - [Step9：关闭谷歌云防火墙](#Step9：关闭谷歌云防火墙)
+    - [Step10：连接SSR](#Step10：连接SSR)
+- [结语](#结语)
+- [参考](#参考)
 
 ### 简介
 
@@ -31,7 +67,7 @@
 
 技术无罪，人心叵测，在珍惜科技发展带来方便的同时，我们也需要一双明亮的大眼睛。
 
-#### 互联网怎么工作的？
+#### 互联网是怎么工作的？
 
 知其然，知其所以然。我们要知道，在浏览器里，输入`https://www.google.com`，后台到底发生了什么？正常情况下，为什么输入`https://www.google.com`，会返回错误信息，而输入`https://www.baidu.com`，会出现渲染界面。有兴趣的读者可以观察这个[视频]( https://www.kenzhishi.com/1933.html )进行简单的了解。
 
@@ -161,14 +197,13 @@ ShadowSocks 是 clowwindy 开发的自用的软件，开发的初衷只是为了
 ##### 硬件环境
 
 1. **VPS服务器**
-
-   - 免费VPS：不好意思，没有一直免费的，目前网上搜到的免费的VPS服务器，极不稳定，影响体验，适合偶尔使用，不适合长期使用；
+- 免费VPS：不好意思，没有一直免费的，目前网上搜到的免费的VPS服务器，极不稳定，影响体验，适合偶尔使用，不适合长期使用；
    - 国外的云服务：[谷歌云](https://cloud.google.com/)、[亚马逊云](https://aws.amazon.com/cn/)、[微软云服务Azure](https://azure.microsoft.com/zh-cn/)等，这些云服务，基本上都会提供一年的免费体验期，可以挨个换着用，通过特殊的方法，有些云服务可以使用不止一次……其实国内的阿里云有[国际版](https://link.zhihu.com/?target=https%3A//www.alibabacloud.com/%3Fspm%3D5176.2020520130.1001.d1.1dd16bc4h2cx2M)，但是禁止大陆用户注册……
    - 学生优惠：包括上述的国外云服务厂商，还有[Digital Ocean](https://m.do.co/c/ad240a3367a0)，一定要记得自己的学校邮箱，可以申请到不少好东西，还可以申请学生优惠；
-
-   - VPS提供商有：**[Vultr](http://www.vultr.com/?ref=7038906)、[Linode](https://www.linode.com/)、[搬瓦工（bandwagonhost）](https://bwh1.net/)**，这些都是消费服务，但是有时候优惠很大，Vultr应该是国内用户用得最多的VPS，价格厚道，支持xx宝付款，但是无奈用户太多，且大部分用户都选择在日本的机房，特征明显压力大，最近频频被封号……[Linode](https://link.zhihu.com/?target=https%3A//www.linode.com/%3Fr%3D34ae657f093b6c1f90eb6cba7015e9bd852db128)强推；
-
-2. 一台可以上网的电脑（个人PC）
+   
+- VPS提供商有：**[Vultr](http://www.vultr.com/?ref=7038906)、[Linode](https://www.linode.com/)、[搬瓦工（bandwagonhost）](https://bwh1.net/)**，这些都是消费服务，但是有时候优惠很大，Vultr应该是国内用户用得最多的VPS，价格厚道，支持xx宝付款，但是无奈用户太多，且大部分用户都选择在日本的机房，特征明显压力大，最近频频被封号……[Linode](https://link.zhihu.com/?target=https%3A//www.linode.com/%3Fr%3D34ae657f093b6c1f90eb6cba7015e9bd852db128)强推；
+   
+2. 一台可以上网的电脑（个人PC）Windows、Mac系统都可以。
 
 ##### 软件环境
 
@@ -179,7 +214,7 @@ ShadowSocks 是 clowwindy 开发的自用的软件，开发的初衷只是为了
 
 ##### 其它环境
 
-1. 实体信用卡或者 信用卡 注册
+1. 实体信用卡或者[虚拟信用卡](https://www.payoneer.com/raf/zh/?rid=C9D47D6B-361F-47BA-B49B-0EE3C054786B)
 
 #### 搭配方案
 
@@ -199,7 +234,11 @@ ShadowSocks 是 clowwindy 开发的自用的软件，开发的初衷只是为了
 
 **VPS服务器**：**谷歌云**，新用户注册谷歌云，可获得300美刀的赠金。
 
-#### Step1：翻个小墙
+#### 配置步骤
+
+实验环境是Windows10，**谷歌云 + BBRPlus加速 + SSR**配置步骤大概分10步。
+
+##### Step1：翻个小墙
 
 没错，第一步就是翻墙，翻个小墙，偷摸摸的出去干点合理合法的小事情，一切为了学习！因为需要一个谷歌账号，如果已经有了谷歌账号，则需要在谷歌云网站注册为新用户，所以我们需要一些方法先翻出去，搞定这些，做好铺垫，再回来利用终端进行配置。
 
@@ -223,11 +262,11 @@ ShadowSocks 是 clowwindy 开发的自用的软件，开发的初衷只是为了
 
 后续步骤都建立在**Step1**之上，即先翻个小墙。
 
-#### Step2：注册谷歌账号
+#####  Step2：注册谷歌账号
 
 这一步无需多言，在翻墙进来之后，打开[Google账户注册](https://support.google.com/accounts/answer/27441?hl=zh-Hans)页面，一步一步进行操作，手机号貌似是可选项，可以不填；整个过程，这一步应该是最好过的一步了。
 
-#### Step3：注册谷歌云服务
+#####  Step3：注册谷歌云服务
 
 **新用户注册谷歌云，可获得300美刀的赠金。**这些小钱钱是打到你的谷歌云账户里的，不能提现，只能在使用谷歌云服务时，进行抵押。
 
@@ -248,7 +287,7 @@ ShadowSocks 是 clowwindy 开发的自用的软件，开发的初衷只是为了
 
 如上图，进入到**结算界面**后，我们在右侧可以看到赠送到你账户的300刀以及免费使用的天数365天。因为我之前注册过并使用了一些服务，所以服务的费用从300刀里面扣了一部分，需要注意的是，这部分赠金使用完后，**不自动**从绑定的信用卡里进行扣费。
 
-#### Step4：创建虚拟机实例
+#####  Step4：创建虚拟机实例
 
 在这一步，创建VPS服务器，在谷歌云里，叫虚拟机实例（VM实例）。
 
@@ -287,7 +326,7 @@ ShadowSocks 是 clowwindy 开发的自用的软件，开发的初衷只是为了
 
 如果这个IP在国内ping不通，则显示一片红，需要在控制台删除这个实例，再重新创建，直到一片绿油油的景象。
 
-#### Steps5：修改谷歌云控制权限
+#####  Step5：修改谷歌云控制权限
 
 这一步的目的是为了我们可以在本地计算机利用ssh管理这个VPS服务器，而不是每次都要登录到谷歌云控制台里面。
 
@@ -335,7 +374,7 @@ passwd
 
 按照提示更改登录密码，温馨提示，尽可能不要用小键盘输入数字，密码请使用数组加字母的组合形式。
 
-#### Steps6：登录VPS服务器
+##### Step6：登录VPS服务器
 
 在**个人电脑**上，打开xshell或者其它终端，具体使用方法请看我的[另一篇文章（Lab532服务器环境(CentOS 7.6)须知）](https://github.com/kangzhiheng/GitLocalDoc#ssh%E7%99%BB%E5%BD%95)，输入
 
@@ -347,7 +386,9 @@ ssh root@IPAddr -p 22
 
 ![SSH登录](https://pic.downk.cc/item/5e7cfd04504f4bcb04f2d5ae.png)
 
-#### Step7：安装BBR加速
+#####  Step7：安装BBR加速内核
+
+[BBR](https://github.com/google/bbr) 是 Google 提出的一种新型拥塞控制算法，可以使 Linux 服务器显著地提高吞吐量和减少 TCP 连接的延迟。从 4.9 开始，Linux 内核已经用上了该算法。部署最新版内核，开启TCP BBR 加速的 VPS，**网速可以提升几个数量级**。
 
 安装`wget`
 
@@ -405,7 +446,7 @@ sudo -i
 
 出现了这个界面，表示BBR加速已经安装完成并启动成功了。
 
-#### Step8：安装服务端SSR
+##### Step8：在VPS上安装SSR服务
 
 继续在上一步的网页版的终端里运行代码
 
@@ -427,7 +468,7 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBack
 
 离成功越来越近了，继续操作。**将上述SSR配置信息保存起来。**
 
-#### Step9：关闭谷歌云防火墙
+#####  Step9：关闭谷歌云防火墙
 
 ![VPS防火墙](https://pic.downk.cc/item/5e7d0b3d504f4bcb04f86edf.png)
 
@@ -445,7 +486,7 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBack
 
 将`协议和端口`改为**全部允许**，`default-allow-https`也是一样的操作。
 
-#### Step10：连接SSR
+##### Step10：连接SSR
 
 下载SSR客户端，链接为：[Windows](https://github.com/shadowsocksrr/shadowsocksr-csharp/releases)、[Android](https://github.com/shadowsocksrr/shadowsocksr-android/releases)、[Mac](https://github.com/qinyuhang/ShadowsocksX-NG-R/releases/)
 
@@ -478,7 +519,7 @@ SSR正常运行时，桌面右下角出现一个粉色的飞机小图标。
 
 ### 结语
 
-一般来说，刚刚配置的VPS，速度都不错，在[油管](https://www.youtube.com/)看4K基本无压力，速度可达24000Kbps。但是随着时间的推移，就会发现速度逐渐变慢，这个时候看超清视频，可能有点吃了，但是搜索看新闻影响不大。如果速度很慢，利用[站长工具](http://ping.chinaz.com/)进行IP检测，实在不能忍受的情况下，在谷歌云里删除该VPS服务器，重新配置即可。
+一般来说，刚刚配置的VPS，速度都不错，在[油管](https://www.youtube.com/)看4K基本无压力，速度可达24000Kbps。但是随着时间的推移，就会发现速度逐渐变慢，这个时候看超清视频，可能都有点吃力，但是搜索看新闻影响不大。如果速度很慢，利用[站长工具](http://ping.chinaz.com/)进行IP检测，实在不能忍受的情况下，在谷歌云里删除该VPS服务器，重新配置即可。
 
 另外，这种方法，也可以在手机（安卓）上进行配置，但是运营商会限速，只是用来搜索，基本没啥大问题。
 
