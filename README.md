@@ -24,7 +24,7 @@
     - [软件环境](#软件环境)
     - [其它环境](#其它环境)
   - [搭配方案](#搭配方案)
-  - [配置步骤](#配置步骤)
+  - [win10配置步骤](#win10配置步骤)
     - [Step1 - 翻个小墙](#Step1：翻个小墙)
     - [Step2 - 注册谷歌账号](#Step2：注册谷歌账号)
     - [Step3 - 注册谷歌云服务](#Step3：注册谷歌云服务)
@@ -240,7 +240,7 @@ ShadowSocks 是 clowwindy 开发的自用的软件，开发的初衷只是为了
 
 实验环境是Windows10，**谷歌云 + BBRPlus加速 + SSR**配置步骤大概分10步。
 
-##### Step1：翻个小墙
+##### Step1 - 翻个小墙
 
 没错，第一步就是翻墙，翻个小墙，偷摸摸的出去干点合理合法的小事情，一切为了学习！因为需要一个谷歌账号，如果已经有了谷歌账号，则需要在谷歌云网站注册为新用户，所以我们需要一些方法先翻出去，搞定这些，做好铺垫，再回来利用终端进行配置。
 
@@ -267,11 +267,11 @@ ShadowSocks 是 clowwindy 开发的自用的软件，开发的初衷只是为了
 
 后续步骤都建立在**Step1**之上，即先翻个小墙，所以想成功完成配置的同学，还是想方设法翻一下墙。
 
-#####  Step2：注册谷歌账号
+#####  Step2 - 注册谷歌账号
 
 这一步无需多言，在翻墙进来之后，打开[Google账户注册](https://support.google.com/accounts/answer/27441?hl=zh-Hans)页面，一步一步进行操作，手机号貌似是可选项，可以不填；整个过程，这一步应该是最好过的一步了。
 
-#####  Step3：注册谷歌云服务
+#####  Step3 - 注册谷歌云服务
 
 **新用户注册谷歌云，可获得300美刀的赠金。**这些小钱钱是打到你的谷歌云账户里的，不能提现，只能在使用谷歌云服务时，进行抵押。
 
@@ -292,7 +292,7 @@ ShadowSocks 是 clowwindy 开发的自用的软件，开发的初衷只是为了
 
 如上图，进入到**结算界面**后，我们在右侧可以看到赠送到你账户的300刀以及免费使用的天数365天。因为我之前注册过并使用了一些服务，所以服务的费用从300刀里面扣了一部分，需要注意的是，这部分赠金使用完后，**不自动**从绑定的信用卡里进行扣费。
 
-#####  Step4：创建VPS服务器
+#####  Step4 - 创建VPS服务器
 
 在这一步，创建VPS服务器，在谷歌云里，叫**虚拟机实例**（VM实例）。
 
@@ -331,7 +331,7 @@ ShadowSocks 是 clowwindy 开发的自用的软件，开发的初衷只是为了
 
 如果这个IP在国内ping不通，则显示一片红，需要在控制台删除这个实例，再重新创建，直到一片绿油油的景象……
 
-#####  Step5：修改谷歌云控制权限
+#####  Step5 - 修改谷歌云控制权限
 
 这一步的目的是为了我们可以在本地计算机利用ssh管理这个VPS服务器，而不是每次都要登录到谷歌云控制台里面。
 
@@ -379,7 +379,7 @@ passwd
 
 按照提示更改登录密码，温馨提示，尽可能不要用小键盘输入数字，密码请使用数组加字母的组合形式。
 
-##### Step6：登录VPS服务器
+##### Step6 - 登录VPS服务器
 
 在**个人电脑**上，打开xshell或者其它终端，具体使用方法请看我的[另一篇文章（Lab532服务器环境(CentOS 7.6)须知）](https://github.com/kangzhiheng/GitLocalDoc#ssh%E7%99%BB%E5%BD%95)，输入
 
@@ -391,7 +391,7 @@ ssh root@IPAddr -p 22
 
 ![SSH登录](https://pic.downk.cc/item/5e7cfd04504f4bcb04f2d5ae.png)
 
-#####  Step7：安装BBR加速内核
+#####  Step7 - 安装BBR加速内核
 
 [BBR](https://github.com/google/bbr) 是 Google 提出的一种新型拥塞控制算法，可以使 Linux 服务器显著地提高吞吐量和减少 TCP 连接的延迟。从 4.9 开始，Linux 内核已经用上了该算法。部署最新版内核，开启TCP BBR 加速的 VPS，**网速可以提升几个数量级**。
 
@@ -451,7 +451,7 @@ sudo -i
 
 出现了这个界面，表示BBR加速已经安装完成并启动成功了。
 
-##### Step8：在VPS上安装SSR服务
+##### Step8 - 在VPS上安装SSR服务
 
 继续在上一步的网页版的终端里运行代码
 
@@ -473,7 +473,7 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBack
 
 离成功越来越近了，继续操作。**可以将上述SSR配置信息保存到本地。**
 
-#####  Step9：关闭谷歌云防火墙
+#####  Step9 - 关闭谷歌云防火墙
 
 ![VPS防火墙](https://pic.downk.cc/item/5e7d0b3d504f4bcb04f86edf.png)
 
@@ -491,7 +491,7 @@ wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBack
 
 将`协议和端口`改为**全部允许**，`default-allow-https`也是一样的操作。
 
-##### Step10：连接SSR
+##### Step10 - 连接SSR
 
 下载SSR客户端，链接为：[Windows](https://github.com/shadowsocksrr/shadowsocksr-csharp/releases)、[Android](https://github.com/shadowsocksrr/shadowsocksr-android/releases)、[Mac](https://github.com/qinyuhang/ShadowsocksX-NG-R/releases/)
 
