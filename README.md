@@ -25,16 +25,16 @@
     - [其它环境](#其它环境)
   - [搭配方案](#搭配方案)
   - [win10配置步骤](#win10配置步骤)
-    - [Step1 - 翻个小墙](#Step1：翻个小墙)
-    - [Step2 - 注册谷歌账号](#Step2：注册谷歌账号)
-    - [Step3 - 注册谷歌云服务](#Step3：注册谷歌云服务)
-    - [Step4 - 创建虚拟机实例](#Step4：创建VPS服务器)
-    - [Step5 - 修改谷歌云控制权限](#Step5：修改谷歌云控制权限)
-    - [step6 - 登录VPS服务器](#step6：登录VPS服务器)
-    - [step7 - 安装BBR加速内核](#step7：安装BBR加速内核)
-    - [Step8 - 在VPS上安装SSR服务](#Step8：在VPS上安装SSR服务)
-    - [Step9 - 关闭谷歌云防火墙](#Step9：关闭谷歌云防火墙)
-    - [Step10 - 连接SSR](#Step10：连接SSR)
+    - [Step1 - 翻个小墙](#Step1 - 翻个小墙)
+    - [Step2 - 注册谷歌账号](#Step2 - 注册谷歌账号)
+    - [Step3 - 注册谷歌云服务](#Step3 - 注册谷歌云服务)
+    - [Step4 - 创建虚拟机实例](#Step4 - 创建VPS服务器)
+    - [Step5 - 修改谷歌云控制权限](#Step5 - 修改谷歌云控制权限)
+    - [step6 - 登录VPS服务器](#step6 - 登录VPS服务器)
+    - [step7 - 安装BBR加速内核](#step7 - 安装BBR加速内核)
+    - [Step8 - 在VPS上安装SSR服务](#Step8 - 在VPS上安装SSR服务)
+    - [Step9 - 关闭谷歌云防火墙](#Step9 - 关闭谷歌云防火墙)
+    - [Step10 - 连接SSR](#Step10 - 连接SSR)
 - [结语](#结语)
 - [参考](#参考)
 
@@ -349,41 +349,34 @@ sudo -i
 
 获取root权限后，继续输入
 
-```bas
-vim /etc/ssh/sshd_config
+```bash
+# 允许 ssh 密码登录
+sed -i 's/PermitRootLogin no/PermitRootLogin yes/g' /etc/ssh/sshd_config
+
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 ```
-
-在英文输入法状态下，按下键盘上的`i`键，此时左下角的标记为**INSERT**状态，移动键盘上的上下左右四个键，找到第38行
-
-```bas
-PermitRootLogin no
-```
-
-将`no`改为`yes`；
-
-将第63行`# PasswordAuthentication yes`前面的`#`去掉。
-
-按下键盘的`esc`键推出编辑模式，按下shift+冒号，再输入`wq`保存并退出。
 
 然后再终端重启sshd服务。
 
-```bas
+```bash
 systemctl restart sshd.service
 ```
 
 修改密码，在终端继续输入
 
-```bas
+```bash
 passwd
 ```
 
 按照提示更改登录密码，温馨提示，尽可能不要用小键盘输入数字，密码请使用数组加字母的组合形式。
 
+执行完以上命令，接着就可以在 xShell 中使用账号密码来连接主机啦，**后续步骤都可以在xShell中进行**，也可以在网页端进行，网页里的ssh连接有点卡。
+
 ##### Step6 - 登录VPS服务器
 
 在**个人电脑**上，打开xshell或者其它终端，具体使用方法请看我的[另一篇文章（Lab532服务器环境(CentOS 7.6)须知）](https://github.com/kangzhiheng/GitLocalDoc#ssh%E7%99%BB%E5%BD%95)，输入
 
-```bas
+```bash
 ssh root@IPAddr -p 22
 ```
 
@@ -395,15 +388,15 @@ ssh root@IPAddr -p 22
 
 [BBR](https://github.com/google/bbr) 是 Google 提出的一种新型拥塞控制算法，可以使 Linux 服务器显著地提高吞吐量和减少 TCP 连接的延迟。从 4.9 开始，Linux 内核已经用上了该算法。部署最新版内核，开启TCP BBR 加速的 VPS，**网速可以提升几个数量级**。
 
-安装`wget`
+CentOS默认没有安装`wget`，需手动安装：
 
-```bas
+```bash
 yum -y install wget
 ```
 
 安装BBR加速，允许下列代码
 
-```bas
+```bash
 wget --no-check-certificate https://raw.githubusercontent.com/cx9208/Linux-NetSpeed/master/tcp.sh && chmod +x tcp.sh && ./tcp.sh
 ```
 
